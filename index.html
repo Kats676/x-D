@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MarketHub — маркетплейс</title>
+    <style>
+        /* ——— RESET & BASE ——— */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            transition: background 0.3s, color 0.2s, border 0.3s;
+        }
+
+        body {
+            background: #f4f6fa;
+            color: #1e1e2f;
+            padding: 0 20px 40px;
+        }
+
+        body.dark {
+            background: #12121a;
+            color: #e4e4f0;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* ——— HEADER ——— */
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 0;
+            border-bottom: 2px solid #ddd;
+            gap: 14px;
+        }
+
+        body.dark header {
+            border-bottom-color: #333;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7c3aed, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .search-bar {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            gap: 0;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 2px solid #ccc;
+            border-radius: 30px 0 0 30px;
+            font-size: 15px;
+            outline: none;
+            background: #fff;
+        }
+
+        body.dark .search-bar input {
+            background: #252533;
+            border-color: #444;
+            color: #eee;
+        }
+
+        .search-bar button {
+            padding: 10px 22px;
+            background: #7c3aed;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background: #6d28d9;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 14px;
+        }
+
+        .header-actions span {
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #eef2ff;
+        }
+
+        body.dark .header-actions span {
+            background: #2a2a3a;
+        }
+
+        .cart-badge {
+            background: #ef4444;
+            color: #fff;
+            border-radius: 50%;
+            padding: 2px 10px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        /* ——— CATEGORIES ——— */
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 24px 0 30px;
+        }
+
+        .categories button {
+            padding: 8px 20px;
+            border-radius: 30px;
+            border: 1px solid #ccc;
+            background: #fff;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        body.dark .categories button {
+            background: #1e1e2e;
+            border-color: #444;
+            color: #ddd;
+        }
+
+        .categories button.active {
+            background: #7c3aed;
+            color: #fff;
+            border-color: #7c3aed;
+        }
+
+        /* ——— FILTERS ROW ——— */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 24px;
+            background: #fff;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        body.dark .filters {
+            background: #1a1a2a;
+        }
+
+        .filters label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+        }
+
+        .filters input, .filters select {
+            padding: 6px 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            background: #f9f9fc;
+        }
+
+        body.dark .filters input,
+        body.dark .filters select {
+            background: #2a2a3e;
+            border-color: #444;
+            color: #eee;
+        }
+
+        /* ——— PRODUCT GRID ——— */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 10px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 18px 16px 20px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee;
+        }
+
+        body.dark .product-card {
+            background: #1c1c2e;
+            border-color: #2e2e44;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+        }
+
+        .product-img {
+            height: 140px;
+            background: linear-gradient(145deg, #d9dff0, #c5cde0);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #3b3b5a;
+        }
+
+        body.dark .product-img {
+            background: linear-gradient(145deg, #2a2a42, #1e1e34);
+            color: #b0b0d0;
+        }
+
+        .product-title {
+            font-weight: 700;
+            font-size: 17px;
+            margin-bottom: 4px;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: #6b6b80;
+            margin-bottom: 8px;
+            flex: 1;
+        }
+
+        body.dark .product-desc {
+            color: #a0a0b8;
+        }
+
+        .product-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: #7c3aed;
+            margin: 6px 0 10px;
+        }
+
+        body.dark .product-price {
+            color: #a78bfa;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
+        }
+
+        .rating {
+            color: #f59e0b;
+            font-size: 14px;
+        }
+
+        .add-to-cart {
+            background: #7c3aed;
+            border: none;
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-to-cart:hover {
+            background: #6d28d9;
+        }
+
+        .add-to-cart.in-cart {
+            background: #22c55e;
+        }
+
+        /* ——— MODAL ——— */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            max-width: 460px;
+            width: 90%;
+            padding: 30px 28px;
+            border-radius: 28px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            animation: popIn 0.25s ease;
+        }
+
+        body.dark .modal {
+            background: #1e1e30;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.92); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal h2 {
+            margin-bottom: 12px;
+        }
+
+        .modal label {
+            display: block;
+            margin: 12px 0 4px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .modal input, .modal select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            background: #f9f9fc;
+        }
+
+        body.dark .modal input,
+        body.dark .modal select {
+            background: #2a2a3e;
+            border-color: #444;
+            color: #eee;
+        }
+
+        .modal .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .modal .btn-group button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #7c3aed;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #1e1e2f;
+        }
+
+        body.dark .btn-secondary {
+            background: #33334a;
+            color: #eee;
+        }
+
+        /* ——— CART DROPDOWN (mini) ——— */
+        .cart-preview {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 48px;
+            background: #fff;
+            min-width: 260px;
+            border-radius: 18px;
+            padding: 16px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+            border: 1px solid #eee;
+        }
+
+        body.dark .cart-preview {
+            background: #1e1e30;
+            border-color: #333;
+        }
+
+        .cart-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .cart-preview.show {
+            display: block;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 14px;
+            border-bottom: 1px solid #f0f0f5;
+        }
+
+        body.dark .cart-item {
+            border-bottom-color: #2e2e44;
+        }
+
+        /* ——— RESPONSIVE ——— */
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .header-actions {
+                justify-content: space-between;
+            }
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">🛒 MarketHub</div>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Поиск товаров..." id="searchInput" />
+            <button onclick="filterProducts()">Найти</button>
+        </div>
+
+        <div class="header-actions">
+            <span>👤 Вход</span>
+            <span>📦 Мои заказы</span>
+            <div class="cart-wrapper">
+                <span onclick="toggleCart()" style="cursor:pointer">
+                    🛍️ Корзина <span class="cart-badge" id="cartCount">0</span>
+                </span>
+                <div class="cart-preview" id="cartPreview">
+                    <div id="cartItems"><em>Корзина пуста</em></div>
+                    <button class="btn-primary" style="width:100%;margin-top:14px;padding:10px" onclick="openCheckout()">
+                        Оформить заказ
+                    </button>
+                </div>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </div>
+    </header>
+
+    <!-- CATEGORIES -->
+    <div class="categories" id="categoryFilter">
+        <button class="active" data-cat="all">Все</button>
+        <button data-cat="games">🎮 Игры</button>
+        <button data-cat="accounts">👤 Аккаунты</button>
+        <button data-cat="keys">🔑 Ключи</button>
+        <button data-cat="software">💻 Софт</button>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters">
+        <label>💰 Цена:
+            <input type="number" id="priceMin" placeholder="от" style="width:70px" />
+            <input type="number" id="priceMax" placeholder="до" style="width:70px" />
+        </label>
+        <label>Платформа:
+            <select id="platformFilter">
+                <option value="all">Все</option>
+                <option value="pc">PC</option>
+                <option value="ps">PlayStation</option>
+                <option value="xbox">Xbox</option>
+                <option value="nintendo">Nintendo</option>
+            </select>
+        </label>
+        <button onclick="filterProducts()" style="padding:8px 24px;background:#7c3aed;color:#fff;border:none;border-radius:30px;font-weight:600;cursor:pointer">Применить</button>
+        <button onclick="resetFilters()" style="padding:8px 18px;background:transparent;border:1px solid #ccc;border-radius:30px;cursor:pointer">Сбросить</button>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="product-grid" id="productGrid"></div>
+
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkoutModal">
+    <div class="modal">
+        <h2>🧾 Оформление заказа</h2>
+        <p style="color:#6b6b80;margin-bottom:12px">Товаров в корзине: <strong id="modalCartCount">0</strong></p>
+
+        <label>Ваше имя</label>
+        <input type="text" placeholder="Иван Иванов" id="customerName" />
+
+        <label>Email</label>
+        <input type="email" placeholder="ivan@mail.ru" id="customerEmail" />
+
+        <label>Способ оплаты</label>
+        <select id="paymentMethod">
+            <option>Банковская карта</option>
+            <option>QIWI</option>
+            <option>ЮMoney</option>
+            <option>USDT (TRC20)</option>
+        </select>
+
+        <div class="btn-group">
+            <button class="btn-secondary" onclick="closeCheckout()">Отмена</button>
+            <button class="btn-primary" onclick="submitOrder()">✅ Подтвердить заказ</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ——— DATA ———
+    const products = [
+        { id: 1, title: 'Steam аккаунт — CS2', desc: 'Ранг LE, 5 скинов, 100+ часов', price: 1290, category: 'accounts', platform: 'pc', emoji: '🎯' },
+        { id: 2, title: 'Cyberpunk 2077 (ключ)', desc: 'PC / GOG — регион RU', price: 1999, category: 'keys', platform: 'pc', emoji: '🔑' },
+        { id: 3, title: 'PlayStation Plus 12 мес.', desc: 'Подписка EU, активация на консоли', price: 3490, category: 'keys', platform: 'ps', emoji: '🎮' },
+        { id: 4, title: 'World of Warcraft акк', desc: '60 уровень, 300+ достижений', price: 2500, category: 'accounts', platform: 'pc', emoji: '⚔️' },
+        { id: 5, title: 'Xbox Game Pass Ultimate', desc: '3 месяца, глобальный ключ', price: 1299, category: 'keys', platform: 'xbox', emoji: '🎮' },
+        { id: 6, title: 'Adobe Premiere Pro (подписка)', desc: '1 месяц, лицензия', price: 890, category: 'software', platform: 'pc', emoji: '🎬' },
+        { id: 7, title: 'Nintendo eShop карта', desc: '50$ на счёт, регион USA', price: 4600, category: 'keys', platform: 'nintendo', emoji: '🕹️' },
+        { id: 8, title: 'Аккаунт Fortnite', desc: 'Сезон 8, скины + V-bucks', price: 1700, category: 'accounts', platform: 'all', emoji: '💥' },
+        { id: 9, title: 'Microsoft Office 2021', desc: 'ключ для PC, бессрочный', price: 3200, category: 'software', platform: 'pc', emoji: '📁' },
+        { id: 10, title: 'Red Dead Redemption 2', desc: 'ключ для Rockstar Launcher', price: 1790, category: 'keys', platform: 'pc', emoji: '🤠' },
+        { id: 11, title: 'Аккаунт Valorant', desc: 'Скины на 5 пистолетов, ранк платина', price: 2100, category: 'accounts', platform: 'pc', emoji: '🔫' },
+        { id: 12, title: 'PS5 — Ghost of Tsushima', desc: 'дисковая версия, б/у', price: 3200, category: 'games', platform: 'ps', emoji: '⚡' },
+    ];
+
+    let cart = [];
+    let currentFiltered = [...products];
+
+    // ——— RENDER ———
+    function renderProducts(list) {
+        const grid = document.getElementById('productGrid');
+        if (!list.length) {
+            grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:50px;color:#888">Ничего не найдено 😕</p>`;
+            return;
+        }
+        grid.innerHTML = list.map(p => `
+            <div class="product-card" data-id="${p.id}">
+                <div class="product-img">${p.emoji}</div>
+                <div class="product-title">${p.title}</div>
+                <div class="product-desc">${p.desc}</div>
+                <div class="product-price">${p.price} ₽</div>
+                <div class="product-footer">
+                    <span class="rating">⭐ ${(4 + Math.random()*0.9).toFixed(1)}</span>
+                    <button class="add-to-cart" onclick="addToCart(${p.id})">➕ В корзину</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // ——— FILTERS ———
+    function filterProducts() {
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const cat = document.querySelector('#categoryFilter .active')?.dataset.cat || 'all';
+        const min = parseFloat(document.getElementById('priceMin').value) || 0;
+        const max = parseFloat(document.getElementById('priceMax').value) || Infinity;
+        const plat = document.getElementById('platformFilter').value;
+
+        currentFiltered = products.filter(p => {
+            const matchSearch = p.title.toLowerCase().includes(search) || p.desc.toLowerCase().includes(search);
+            const matchCat = cat === 'all' || p.category === cat;
+            const matchPrice = p.price >= min && p.price <= max;
+            const matchPlat = plat === 'all' || p.platform === plat || p.platform === 'all';
+            return matchSearch && matchCat && matchPrice && matchPlat;
+        });
+        renderProducts(currentFiltered);
+    }
+
+    function resetFilters() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('priceMin').value = '';
+        document.getElementById('priceMax').value = '';
+        document.getElementById('platformFilter').value = 'all';
+        document.querySelectorAll('#categoryFilter button').forEach(b => b.classList.remove('active'));
+        document.querySelector('#categoryFilter button[data-cat="all"]').classList.add('active');
+        filterProducts();
+    }
+
+    // ——— CATEGORY CLICK ———
+    document.querySelectorAll('#categoryFilter button').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('#categoryFilter button').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            filterProducts();
+        });
+    });
+
+    // ——— CART ———
+    function addToCart(id) {
+        const product = products.find(p => p.id === id);
+        if (!product) return;
+        const existing = cart.find(c => c.id === id);
+        if (existing) {
+            existing.qty += 1;
+        } else {
+            cart.push({ ...product, qty: 1 });
+        }
+        updateCartUI();
+        // анимация кнопки
+        const card = document.querySelector(`.product-card[data-id="${id}"] .add-to-cart`);
+        if (card) {
+            card.textContent = '✅ В корзине';
+            card.classList.add('in-cart');
+            setTimeout(() => {
+                card.textContent = '➕ В корзину';
+                card.classList.remove('in-cart');
+            }, 800);
+        }
+    }
+
+    function updateCartUI() {
+        const count = cart.reduce((sum, item) => sum + item.qty, 0);
+        document.getElementById('cartCount').textContent = count;
+        const preview = document.getElementById('cartItems');
+        if (!cart.length) {
+            preview.innerHTML = '<em>Корзина пуста</em>';
+            return;
+        }
+        preview.innerHTML = cart.map(item =>
+            `<div class="cart-item">
+                <span>${item.emoji} ${item.title} (x${item.qty})</span>
+                <span>${item.price * item.qty} ₽</span>
+            </div>`
+        ).join('');
+    }
+
+    function toggleCart() {
+        const el = document.getElementById('cartPreview');
+        el.classList.toggle('show');
+    }
+
+    // ——— CHECKOUT ———
+    function openCheckout() {
+        if (!cart.length) {
+            alert('Корзина пуста! Добавьте товары.');
+            return;
+        }
+        document.getElementById('modalCartCount').textContent = cart.reduce((s, i) => s + i.qty, 0);
+        document.getElementById('checkoutModal').classList.add('open');
+        document.getElementById('cartPreview').classList.remove('show');
+    }
+
+    function closeCheckout() {
+        document.getElementById('checkoutModal').classList.remove('open');
+    }
+
+    function submitOrder() {
+        const name = document.getElementById('customerName').value.trim();
+        const email = document.getElementById('customerEmail').value.trim();
+        if (!name || !email) {
+            alert('Заполните имя и email!');
+            return;
+        }
+        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        alert(`✅ Заказ оформлен!\nПокупатель: ${name}\nEmail: ${email}\nСумма: ${total} ₽\nСпасибо за покупку!`);
+        cart = [];
+        updateCartUI();
+        closeCheckout();
+        document.getElementById('customerName').value = '';
+        document.getElementById('customerEmail').value = '';
+    }
+
+    // ——— THEME ———
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        const btn = document.querySelector('.theme-toggle');
+        btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    }
+
+    // ——— INIT ———
+    renderProducts(products);
+    updateCartUI();
+
+    // Закрыть корзину кликом вне
+    document.addEventListener('click', (e) => {
+        const wrap = document.querySelector('.cart-wrapper');
+        if (wrap && !wrap.contains(e.target)) {
+            document.getElementById('cartPreview').classList.remove('show');
+        }
+    });
+
+    // Закрыть модалку по оверлею
+    document.getElementById('checkoutModal').addEventListener('click', function(e) {
+        if (e.target === this) closeCheckout();
+    });
+
+    // Поиск по Enter
+    document.getElementById('searchInput').addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') filterProducts();
+    });
+</script>
+
+</body>
+</html>

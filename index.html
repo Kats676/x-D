@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Markethub — маркетплейс</title>
+    <title>MarketHub — маркетплейс с оплатой</title>
     <style>
-        /* ===== RESET ===== */
+        /* ===== БАЗА ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
         body {
@@ -30,7 +30,7 @@
             margin: 0 auto;
         }
 
-        /* ===== HEADER ===== */
+        /* ===== ХЭДЕР ===== */
         header {
             display: flex;
             flex-wrap: wrap;
@@ -51,84 +51,59 @@
             background: linear-gradient(135deg, #7c3aed, #2563eb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .search-bar {
-            flex: 1;
-            min-width: 180px;
-            display: flex;
-        }
-
-        .search-bar input {
-            flex: 1;
-            padding: 10px 16px;
-            border: 2px solid #cbd5e1;
-            border-radius: 30px 0 0 30px;
-            font-size: 15px;
-            outline: none;
-            background: #fff;
-            color: #1a1a2e;
-        }
-
-        body.dark .search-bar input {
-            background: #1e1e32;
-            border-color: #3a3a56;
-            color: #eee;
-        }
-
-        .search-bar button {
-            padding: 10px 22px;
-            background: #7c3aed;
-            border: none;
-            border-radius: 0 30px 30px 0;
-            color: #fff;
-            font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .search-bar button:hover {
-            background: #5b21b6;
         }
 
         .header-actions {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 12px 18px;
-            font-size: 14px;
+            gap: 10px 16px;
         }
 
-        .header-actions .btn-outline {
-            padding: 6px 14px;
+        .header-actions button {
+            padding: 8px 18px;
             border-radius: 30px;
-            background: #eef2ff;
-            cursor: pointer;
             border: none;
-            font-weight: 500;
-        }
-
-        body.dark .header-actions .btn-outline {
-            background: #25253b;
-            color: #ddd;
-        }
-
-        .cart-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        .cart-trigger {
-            cursor: pointer;
             font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 30px;
-            background: #eef2ff;
-            border: none;
+            cursor: pointer;
+            transition: 0.2s;
             font-size: 14px;
         }
 
-        body.dark .cart-trigger {
+        .btn-primary {
+            background: #7c3aed;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #5b21b6;
+        }
+
+        .btn-success {
+            background: #22c55e;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #16a34a;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-outline {
+            background: #eef2ff;
+            color: #1a1a2e;
+        }
+        .btn-outline:hover {
+            background: #dde0f0;
+        }
+
+        body.dark .btn-outline {
             background: #25253b;
             color: #ddd;
         }
@@ -143,41 +118,6 @@
             margin-left: 4px;
         }
 
-        .cart-preview {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 44px;
-            background: #fff;
-            min-width: 260px;
-            border-radius: 18px;
-            padding: 16px;
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.13);
-            border: 1px solid #e2e8f0;
-            z-index: 100;
-        }
-
-        body.dark .cart-preview {
-            background: #1a1a2e;
-            border-color: #33334d;
-        }
-
-        .cart-preview.show {
-            display: block;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            font-size: 14px;
-            border-bottom: 1px solid #eef2f8;
-        }
-
-        body.dark .cart-item {
-            border-bottom-color: #2a2a44;
-        }
-
         .theme-toggle {
             background: none;
             border: none;
@@ -185,37 +125,37 @@
             cursor: pointer;
         }
 
-        /* ===== CATEGORIES ===== */
-        .categories {
+        .user-info {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 22px 0 24px;
-        }
-
-        .categories button {
-            padding: 8px 22px;
-            border-radius: 30px;
-            border: 1px solid #cbd5e1;
-            background: #fff;
-            cursor: pointer;
+            align-items: center;
+            gap: 8px;
             font-weight: 500;
-            transition: 0.2s;
+            font-size: 14px;
         }
 
-        body.dark .categories button {
-            background: #18182a;
-            border-color: #3a3a56;
-            color: #ccc;
-        }
-
-        .categories button.active {
+        .user-info .avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
             background: #7c3aed;
             color: #fff;
-            border-color: #7c3aed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
         }
 
-        /* ===== FILTERS ===== */
+        /* ===== СТРАНИЦЫ ===== */
+        .page {
+            display: none;
+            margin-top: 24px;
+        }
+        .page.active {
+            display: block;
+        }
+
+        /* ===== КАТАЛОГ ===== */
         .filters {
             display: flex;
             flex-wrap: wrap;
@@ -224,7 +164,7 @@
             background: #fff;
             padding: 14px 20px;
             border-radius: 16px;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
@@ -232,16 +172,9 @@
             background: #16162a;
         }
 
-        .filters label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 14px;
-        }
-
         .filters input,
         .filters select {
-            padding: 6px 12px;
+            padding: 8px 14px;
             border-radius: 10px;
             border: 1px solid #cbd5e1;
             background: #f8fafc;
@@ -255,30 +188,11 @@
             color: #eee;
         }
 
-        .filters .btn-filter {
-            padding: 8px 24px;
-            background: #7c3aed;
-            color: #fff;
-            border: none;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
+        .filters .search-input {
+            flex: 1;
+            min-width: 160px;
         }
 
-        .filters .btn-reset {
-            padding: 8px 18px;
-            background: transparent;
-            border: 1px solid #cbd5e1;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-
-        body.dark .filters .btn-reset {
-            border-color: #3f3f5e;
-            color: #ccc;
-        }
-
-        /* ===== PRODUCT GRID ===== */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -307,7 +221,7 @@
         }
 
         .product-img {
-            height: 130px;
+            height: 120px;
             border-radius: 14px;
             background: linear-gradient(145deg, #e2e8f0, #d0d8e8);
             display: flex;
@@ -348,6 +262,12 @@
             color: #a78bfa;
         }
 
+        .product-seller {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
         .product-footer {
             display: flex;
             justify-content: space-between;
@@ -355,32 +275,28 @@
             margin-top: 4px;
         }
 
-        .rating {
-            color: #f59e0b;
-            font-size: 14px;
-        }
-
-        .btn-cart {
-            background: #7c3aed;
-            border: none;
-            color: #fff;
-            padding: 8px 20px;
+        .product-footer button {
+            padding: 8px 16px;
             border-radius: 30px;
+            border: none;
             font-weight: 600;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             transition: 0.2s;
         }
 
-        .btn-cart:hover {
+        .btn-buy {
+            background: #7c3aed;
+            color: #fff;
+        }
+        .btn-buy:hover {
             background: #5b21b6;
         }
-
-        .btn-cart.in-cart {
+        .btn-buy.in-cart {
             background: #22c55e;
         }
 
-        /* ===== MODAL ===== */
+        /* ===== МОДАЛКА ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -391,15 +307,14 @@
             justify-content: center;
             z-index: 999;
         }
-
         .modal-overlay.open {
             display: flex;
         }
 
         .modal {
             background: #fff;
-            max-width: 460px;
-            width: 92%;
+            max-width: 500px;
+            width: 94%;
             padding: 28px 26px;
             border-radius: 28px;
             animation: pop 0.25s ease;
@@ -423,7 +338,10 @@
         }
 
         .modal h2 {
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+        }
+        .modal p {
+            margin-bottom: 6px;
         }
 
         .modal label {
@@ -434,7 +352,8 @@
         }
 
         .modal input,
-        .modal select {
+        .modal select,
+        .modal textarea {
             width: 100%;
             padding: 10px 14px;
             border-radius: 12px;
@@ -444,7 +363,8 @@
         }
 
         body.dark .modal input,
-        body.dark .modal select {
+        body.dark .modal select,
+        body.dark .modal textarea {
             background: #22223a;
             border-color: #3f3f5e;
             color: #eee;
@@ -455,7 +375,6 @@
             gap: 12px;
             margin-top: 22px;
         }
-
         .modal .btn-group button {
             flex: 1;
             padding: 12px;
@@ -466,43 +385,55 @@
             font-size: 15px;
         }
 
-        .btn-primary {
-            background: #7c3aed;
-            color: #fff;
+        /* ===== АВТОРИЗАЦИЯ ===== */
+        .auth-form {
+            max-width: 380px;
+            margin: 0 auto;
         }
-
-        .btn-primary:hover {
-            background: #5b21b6;
+        .auth-form .form-group {
+            margin-bottom: 16px;
         }
-
-        .btn-secondary {
-            background: #e2e8f0;
-            color: #1a1a2e;
+        .auth-form .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 14px;
         }
-
-        body.dark .btn-secondary {
-            background: #2e2e4a;
+        .auth-form .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            font-size: 15px;
+        }
+        body.dark .auth-form .form-group input {
+            background: #22223a;
+            border-color: #3f3f5e;
             color: #eee;
         }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 700px) {
-            header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .header-actions {
-                justify-content: space-between;
-            }
-            .filters {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .filters label {
-                flex-wrap: wrap;
-            }
+        .auth-form .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+        }
+        .auth-form .btn-group button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 15px;
         }
 
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+            font-size: 18px;
+        }
+
+        /* ===== ТОСТ ===== */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -519,22 +450,125 @@
             pointer-events: none;
             z-index: 9999;
         }
-
         body.dark .toast {
             background: #e8e8f0;
             color: #1a1a2e;
         }
-
         .toast.show {
             opacity: 1;
         }
 
-        .empty-state {
-            grid-column: 1 / -1;
+        /* ===== ДАШБОРД ===== */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        @media (max-width: 700px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dashboard-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #edf2f7;
+        }
+        body.dark .dashboard-card {
+            background: #18182c;
+            border-color: #2a2a44;
+        }
+        .dashboard-card h3 {
+            margin-bottom: 14px;
+        }
+        .dashboard-card .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 14px;
+        }
+        body.dark .dashboard-card .item {
+            border-bottom-color: #2a2a44;
+        }
+
+        .order-status {
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .status-paid {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status-done {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .status-canceled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* ===== ОПЛАТА ===== */
+        .payment-options {
+            display: flex;
+            gap: 14px;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+        .payment-options .option {
+            flex: 1;
+            min-width: 120px;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
             text-align: center;
-            padding: 60px 20px;
-            color: #94a3b8;
-            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+        .payment-options .option:hover {
+            border-color: #7c3aed;
+        }
+        .payment-options .option.active {
+            border-color: #7c3aed;
+            background: #ede9fe;
+        }
+        body.dark .payment-options .option.active {
+            background: #2a1a4a;
+        }
+        .payment-options .option .icon {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .payment-options .option .label {
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .header-actions {
+                justify-content: space-between;
+            }
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filters .search-input {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -542,378 +576,663 @@
 
     <div class="container">
 
-        <!-- HEADER -->
+        <!-- ===== ХЭДЕР ===== -->
         <header>
-            <div class="logo">🛒 Markethub</div>
-
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Поиск товаров..." />
-                <button onclick="applyFilters()">Найти</button>
-            </div>
+            <div class="logo" onclick="showPage('catalog')">🛒 MarketHub</div>
 
             <div class="header-actions">
-                <span class="btn-outline">👤 Вход</span>
-                <span class="btn-outline">📦 Заказы</span>
+                <button class="btn-outline" onclick="showPage('catalog')">📦 Каталог</button>
 
-                <div class="cart-wrapper">
-                    <button class="cart-trigger" onclick="toggleCart()">
-                        🛍️ Корзина <span class="cart-badge" id="cartCount">0</span>
-                    </button>
-                    <div class="cart-preview" id="cartPreview">
-                        <div id="cartItems"><em>Корзина пуста</em></div>
-                        <button class="btn-primary" style="width:100%;margin-top:14px;padding:10px;border-radius:30px;border:none;font-weight:700;cursor:pointer;" onclick="openCheckout()">
-                            Оформить заказ
-                        </button>
-                    </div>
+                <div id="authButtons">
+                    <button class="btn-primary" onclick="showPage('login')">🔑 Вход</button>
+                    <button class="btn-outline" onclick="showPage('register')">📝 Регистрация</button>
+                </div>
+
+                <div id="userMenu" style="display:none;">
+                    <button class="btn-outline" onclick="showPage('dashboard')">👤 Кабинет</button>
+                    <button class="btn-outline" onclick="showPage('myProducts')">📦 Мои товары</button>
+                    <button class="btn-outline" onclick="showPage('addProduct')">➕ Добавить</button>
+                    <button class="btn-danger" onclick="logout()">🚪 Выйти</button>
                 </div>
 
                 <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
             </div>
         </header>
 
-        <!-- CATEGORIES -->
-        <div class="categories" id="categoryFilter">
-            <button class="active" data-cat="all">Все</button>
-            <button data-cat="games">🎮 Игры</button>
-            <button data-cat="accounts">👤 Аккаунты</button>
-            <button data-cat="keys">🔑 Ключи</button>
-            <button data-cat="software">💻 Софт</button>
-        </div>
-
-        <!-- FILTERS -->
-        <div class="filters">
-            <label>💰 Цена:
-                <input type="number" id="priceMin" placeholder="от" style="width:70px" />
-                <input type="number" id="priceMax" placeholder="до" style="width:70px" />
-            </label>
-            <label>Платформа:
-                <select id="platformFilter">
-                    <option value="all">Все</option>
-                    <option value="pc">PC</option>
-                    <option value="ps">PlayStation</option>
-                    <option value="xbox">Xbox</option>
-                    <option value="nintendo">Nintendo</option>
+        <!-- ===== КАТАЛОГ ===== -->
+        <div class="page active" id="page-catalog">
+            <div class="filters">
+                <input class="search-input" id="searchInput" placeholder="🔍 Поиск товаров..." oninput="applyFilters()" />
+                <select id="categoryFilter" onchange="applyFilters()">
+                    <option value="all">Все категории</option>
+                    <option value="games">🎮 Игры</option>
+                    <option value="accounts">👤 Аккаунты</option>
+                    <option value="keys">🔑 Ключи</option>
+                    <option value="software">💻 Софт</option>
                 </select>
-            </label>
-            <button class="btn-filter" onclick="applyFilters()">Применить</button>
-            <button class="btn-reset" onclick="resetFilters()">Сбросить</button>
+                <input type="number" id="priceMin" placeholder="Цена от" style="width:100px;" oninput="applyFilters()" />
+                <input type="number" id="priceMax" placeholder="Цена до" style="width:100px;" oninput="applyFilters()" />
+                <button class="btn-primary" onclick="applyFilters()">Применить</button>
+                <button class="btn-outline" onclick="resetFilters()">Сбросить</button>
+            </div>
+
+            <div class="product-grid" id="productGrid"></div>
         </div>
 
-        <!-- PRODUCT GRID -->
-        <div class="product-grid" id="productGrid"></div>
+        <!-- ===== РЕГИСТРАЦИЯ ===== -->
+        <div class="page" id="page-register">
+            <div class="auth-form">
+                <h2>📝 Регистрация</h2>
+                <p style="color:#64748b;margin-bottom:18px;">Создай аккаунт, чтобы продавать и покупать</p>
 
-    </div>
+                <div class="form-group">
+                    <label>👤 Имя пользователя</label>
+                    <input type="text" id="regUsername" placeholder="Придумай ник" />
+                </div>
+                <div class="form-group">
+                    <label>📧 Email</label>
+                    <input type="email" id="regEmail" placeholder="tvoi@mail.ru" />
+                </div>
+                <div class="form-group">
+                    <label>🔒 Пароль</label>
+                    <input type="password" id="regPassword" placeholder="Минимум 6 символов" />
+                </div>
+                <div class="form-group">
+                    <label>🛒 Я хочу</label>
+                    <select id="regRole">
+                        <option value="buyer">Покупать товары</option>
+                        <option value="seller">Продавать товары</option>
+                        <option value="both">И продавать, и покупать</option>
+                    </select>
+                </div>
 
-    <!-- CHECKOUT MODAL -->
-    <div class="modal-overlay" id="checkoutModal">
-        <div class="modal">
-            <h2>🧾 Оформление заказа</h2>
-            <p style="color:#64748b;margin-bottom:14px;">Товаров: <strong id="modalCartCount">0</strong></p>
-
-            <label>Ваше имя</label>
-            <input type="text" id="customerName" placeholder="Иван Иванов" />
-
-            <label>Email</label>
-            <input type="email" id="customerEmail" placeholder="ivan@mail.ru" />
-
-            <label>Способ оплаты</label>
-            <select id="paymentMethod">
-                <option>Банковская карта</option>
-                <option>QIWI</option>
-                <option>ЮMoney</option>
-                <option>USDT (TRC20)</option>
-            </select>
-
-            <div class="btn-group">
-                <button class="btn-secondary" onclick="closeCheckout()">Отмена</button>
-                <button class="btn-primary" onclick="submitOrder()">✅ Подтвердить</button>
+                <div class="btn-group">
+                    <button class="btn-secondary" onclick="showPage('login')">Уже есть аккаунт</button>
+                    <button class="btn-primary" onclick="register()">Зарегистрироваться</button>
+                </div>
             </div>
         </div>
+
+        <!-- ===== ВХОД ===== -->
+        <div class="page" id="page-login">
+            <div class="auth-form">
+                <h2>🔑 Вход</h2>
+                <p style="color:#64748b;margin-bottom:18px;">Войди в свой аккаунт</p>
+
+                <div class="form-group">
+                    <label>📧 Email</label>
+                    <input type="email" id="loginEmail" placeholder="tvoi@mail.ru" />
+                </div>
+                <div class="form-group">
+                    <label>🔒 Пароль</label>
+                    <input type="password" id="loginPassword" placeholder="Введи пароль" />
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-secondary" onclick="showPage('register')">Нет аккаунта?</button>
+                    <button class="btn-primary" onclick="login()">Войти</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ЛИЧНЫЙ КАБИНЕТ ===== -->
+        <div class="page" id="page-dashboard">
+            <h2>👤 Личный кабинет</h2>
+            <div id="dashboardContent"></div>
+        </div>
+
+        <!-- ===== МОИ ТОВАРЫ ===== -->
+        <div class="page" id="page-myProducts">
+            <h2>📦 Мои товары</h2>
+            <div id="myProductsContent"></div>
+        </div>
+
+        <!-- ===== ДОБАВИТЬ ТОВАР ===== -->
+        <div class="page" id="page-addProduct">
+            <h2>➕ Добавить товар</h2>
+            <div style="max-width:500px;">
+                <div class="form-group">
+                    <label>🏷️ Название</label>
+                    <input type="text" id="prodTitle" placeholder="Название товара" />
+                </div>
+                <div class="form-group">
+                    <label>📝 Описание</label>
+                    <textarea id="prodDesc" rows="3" placeholder="Описание товара"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>💰 Цена (₽)</label>
+                    <input type="number" id="prodPrice" placeholder="1000" />
+                </div>
+                <div class="form-group">
+                    <label>📂 Категория</label>
+                    <select id="prodCategory">
+                        <option value="games">🎮 Игры</option>
+                        <option value="accounts">👤 Аккаунты</option>
+                        <option value="keys">🔑 Ключи</option>
+                        <option value="software">💻 Софт</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>🎨 Эмодзи для картинки</label>
+                    <input type="text" id="prodEmoji" placeholder="🎮" maxlength="2" />
+                </div>
+                <div class="form-group">
+                    <label>📦 Доступно штук</label>
+                    <input type="number" id="prodStock" placeholder="10" />
+                </div>
+                <button class="btn-primary" onclick="addProduct()" style="width:100%;padding:14px;border-radius:30px;border:none;font-weight:700;cursor:pointer;font-size:16px;">
+                    ✅ Добавить товар
+                </button>
+            </div>
+        </div>
+
+        <!-- ===== МОДАЛКА ОПЛАТЫ ===== -->
+        <div class="modal-overlay" id="paymentModal">
+            <div class="modal">
+                <h2>💳 Оплата</h2>
+                <div id="paymentProductInfo">
+                    <p><strong>Товар:</strong> <span id="payProductTitle"></span></p>
+                    <p><strong>Продавец:</strong> <span id="payProductSeller"></span></p>
+                    <p style="font-size:24px;font-weight:800;color:#7c3aed;margin:12px 0;">
+                        <span id="payProductPrice"></span> ₽
+                    </p>
+                </div>
+
+                <label>Выбери способ оплаты:</label>
+                <div class="payment-options">
+                    <div class="option active" onclick="selectPayment('card')" id="opt-card">
+                        <span class="icon">💳</span>
+                        <span class="label">Банковская карта</span>
+                    </div>
+                    <div class="option" onclick="selectPayment('sbp')" id="opt-sbp">
+                        <span class="icon">📱</span>
+                        <span class="label">СБП</span>
+                    </div>
+                </div>
+
+                <div style="background:#f0f2f8;border-radius:14px;padding:14px;margin:12px 0;text-align:center;">
+                    <p style="font-size:13px;color:#64748b;">🔒 Безопасная оплата через <strong>DonationAlerts</strong></p>
+                    <p style="font-size:12px;color:#94a3b8;">Карты МИР, Visa, Mastercard, СБП</p>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-secondary" onclick="closePayment()">Отмена</button>
+                    <button class="btn-success" onclick="payWithDonationAlerts()">
+                        💳 Перейти к оплате
+                    </button>
+                </div>
+                <p style="font-size:12px;color:#94a3b8;text-align:center;margin-top:10px;">
+                    После оплаты нажми "Я оплатил" — продавец отправит товар
+                </p>
+            </div>
+        </div>
+
+        <!-- ===== МОДАЛКА ПОДТВЕРЖДЕНИЯ ===== -->
+        <div class="modal-overlay" id="confirmModal">
+            <div class="modal">
+                <h2>✅ Оплата прошла?</h2>
+                <p style="color:#64748b;margin-bottom:16px;">
+                    Если вы уже оплатили заказ, нажмите "Я оплатил".
+                    Продавец получит уведомление и отправит товар.
+                </p>
+                <div class="btn-group">
+                    <button class="btn-secondary" onclick="closeConfirm()">Я передумал</button>
+                    <button class="btn-success" onclick="confirmPayment()">✅ Я оплатил</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- TOAST -->
+    <!-- ===== ТОСТ ===== -->
     <div class="toast" id="toast"></div>
 
     <script>
-        // ===================== DATA =====================
-        const products = [{
-            id: 1,
-            title: 'Steam аккаунт — CS2',
-            desc: 'Ранг LE, 5 скинов, 100+ часов',
-            price: 1290,
-            category: 'accounts',
-            platform: 'pc',
-            emoji: '🎯'
-        }, {
-            id: 2,
-            title: 'Cyberpunk 2077 (ключ)',
-            desc: 'PC / GOG — регион RU',
-            price: 1999,
-            category: 'keys',
-            platform: 'pc',
-            emoji: '🔑'
-        }, {
-            id: 3,
-            title: 'PlayStation Plus 12 мес.',
-            desc: 'Подписка EU, активация',
-            price: 3490,
-            category: 'keys',
-            platform: 'ps',
-            emoji: '🎮'
-        }, {
-            id: 4,
-            title: 'World of Warcraft акк',
-            desc: '60 уровень, 300+ достижений',
-            price: 2500,
-            category: 'accounts',
-            platform: 'pc',
-            emoji: '⚔️'
-        }, {
-            id: 5,
-            title: 'Xbox Game Pass Ultimate',
-            desc: '3 месяца, глобальный ключ',
-            price: 1299,
-            category: 'keys',
-            platform: 'xbox',
-            emoji: '🎮'
-        }, {
-            id: 6,
-            title: 'Adobe Premiere Pro',
-            desc: '1 месяц, лицензия',
-            price: 890,
-            category: 'software',
-            platform: 'pc',
-            emoji: '🎬'
-        }, {
-            id: 7,
-            title: 'Nintendo eShop карта',
-            desc: '50$ на счёт, регион USA',
-            price: 4600,
-            category: 'keys',
-            platform: 'nintendo',
-            emoji: '🕹️'
-        }, {
-            id: 8,
-            title: 'Аккаунт Fortnite',
-            desc: 'Сезон 8, скины + V-bucks',
-            price: 1700,
-            category: 'accounts',
-            platform: 'all',
-            emoji: '💥'
-        }, {
-            id: 9,
-            title: 'Microsoft Office 2021',
-            desc: 'ключ для PC, бессрочный',
-            price: 3200,
-            category: 'software',
-            platform: 'pc',
-            emoji: '📁'
-        }, {
-            id: 10,
-            title: 'Red Dead Redemption 2',
-            desc: 'ключ для Rockstar Launcher',
-            price: 1790,
-            category: 'keys',
-            platform: 'pc',
-            emoji: '🤠'
-        }, {
-            id: 11,
-            title: 'Аккаунт Valorant',
-            desc: 'Скины на 5 пистолетов, платина',
-            price: 2100,
-            category: 'accounts',
-            platform: 'pc',
-            emoji: '🔫'
-        }, {
-            id: 12,
-            title: 'Ghost of Tsushima (PS5)',
-            desc: 'диск, б/у, отличное состояние',
-            price: 3200,
-            category: 'games',
-            platform: 'ps',
-            emoji: '⚡'
-        }, {
-            id: 13,
-            title: 'Minecraft Java + Bedrock',
-            desc: 'ключ для PC, глобальный',
-            price: 1890,
-            category: 'keys',
-            platform: 'pc',
-            emoji: '⛏️'
-        }, {
-            id: 14,
-            title: 'Аккаунт GTA V Online',
-            desc: '150 млн, все тачки, ранг 120',
-            price: 2800,
-            category: 'accounts',
-            platform: 'all',
-            emoji: '🏎️'
-        }, {
-            id: 15,
-            title: 'Windows 11 Pro лицензия',
-            desc: 'ключ OEM, бессрочный',
-            price: 550,
-            category: 'software',
-            platform: 'pc',
-            emoji: '🪟'
-        }, ];
+        // ===================== ДАННЫЕ =====================
+        let products = JSON.parse(localStorage.getItem('products')) || [];
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let selectedProductId = null;
+        let selectedPayment = 'card';
 
-        // ===================== STATE =====================
-        let cart = [];
-        let filtered = [...products];
-
-        // ===================== RENDER =====================
-        function renderProducts(list) {
-            const grid = document.getElementById('productGrid');
-            if (!list || !list.length) {
-                grid.innerHTML = `<div class="empty-state">😕 Товаров не найдено</div>`;
-                return;
-            }
-            grid.innerHTML = list.map(p => `
-                    <div class="product-card" data-id="${p.id}">
-                        <div class="product-img">${p.emoji}</div>
-                        <div class="product-title">${p.title}</div>
-                        <div class="product-desc">${p.desc}</div>
-                        <div class="product-price">${p.price.toLocaleString()} ₽</div>
-                        <div class="product-footer">
-                            <span class="rating">⭐ ${(4 + Math.random() * 0.9).toFixed(1)}</span>
-                            <button class="btn-cart" onclick="addToCart(${p.id})">➕ В корзину</button>
-                        </div>
-                    </div>
-                `).join('');
+        // ===================== СОХРАНЕНИЕ =====================
+        function saveData() {
+            localStorage.setItem('products', JSON.stringify(products));
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('orders', JSON.stringify(orders));
+            localStorage.setItem('cart', JSON.stringify(cart));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
         }
 
-        // ===================== FILTERS =====================
-        function applyFilters() {
-            const search = document.getElementById('searchInput').value.toLowerCase().trim();
-            const catEl = document.querySelector('#categoryFilter .active');
-            const cat = catEl ? catEl.dataset.cat : 'all';
-            const min = parseFloat(document.getElementById('priceMin').value) || 0;
-            const max = parseFloat(document.getElementById('priceMax').value) || Infinity;
-            const plat = document.getElementById('platformFilter').value;
-
-            filtered = products.filter(p => {
-                const matchSearch = p.title.toLowerCase().includes(search) || p.desc.toLowerCase().includes(search);
-                const matchCat = cat === 'all' || p.category === cat;
-                const matchPrice = p.price >= min && p.price <= max;
-                const matchPlat = plat === 'all' || p.platform === plat || p.platform === 'all';
-                return matchSearch && matchCat && matchPrice && matchPlat;
-            });
-            renderProducts(filtered);
-        }
-
-        function resetFilters() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('priceMin').value = '';
-            document.getElementById('priceMax').value = '';
-            document.getElementById('platformFilter').value = 'all';
-            document.querySelectorAll('#categoryFilter button').forEach(b => b.classList.remove('active'));
-            document.querySelector('#categoryFilter button[data-cat="all"]').classList.add('active');
-            applyFilters();
-        }
-
-        // ===================== CATEGORY CLICK =====================
-        document.querySelectorAll('#categoryFilter button').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('#categoryFilter button').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                applyFilters();
-            });
-        });
-
-        // ===================== SEARCH ENTER =====================
-        document.getElementById('searchInput').addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') applyFilters();
-        });
-
-        // ===================== CART =====================
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            if (!product) return;
-            const existing = cart.find(c => c.id === id);
-            if (existing) {
-                existing.qty += 1;
-            } else {
-                cart.push({ ...product, qty: 1 });
-            }
-            updateCartUI();
-            showToast(`✅ ${product.title} добавлен в корзину`);
-
-            const btn = document.querySelector(`.product-card[data-id="${id}"] .btn-cart`);
-            if (btn) {
-                btn.textContent = '✅ В корзине';
-                btn.classList.add('in-cart');
-                setTimeout(() => {
-                    btn.textContent = '➕ В корзину';
-                    btn.classList.remove('in-cart');
-                }, 900);
-            }
-        }
-
-        function updateCartUI() {
-            const count = cart.reduce((s, i) => s + i.qty, 0);
-            document.getElementById('cartCount').textContent = count;
-            const container = document.getElementById('cartItems');
-            if (!cart.length) {
-                container.innerHTML = '<em>Корзина пуста</em>';
-                return;
-            }
-            container.innerHTML = cart.map(i =>
-                `<div class="cart-item">
-                        <span>${i.emoji} ${i.title} (x${i.qty})</span>
-                        <span>${(i.price * i.qty).toLocaleString()} ₽</span>
-                    </div>`
-            ).join('');
-        }
-
-        function toggleCart() {
-            document.getElementById('cartPreview').classList.toggle('show');
-        }
-
-        // ===================== CHECKOUT =====================
-        function openCheckout() {
-            if (!cart.length) {
-                showToast('Корзина пуста!');
-                return;
-            }
-            document.getElementById('modalCartCount').textContent = cart.reduce((s, i) => s + i.qty, 0);
-            document.getElementById('checkoutModal').classList.add('open');
-            document.getElementById('cartPreview').classList.remove('show');
-        }
-
-        function closeCheckout() {
-            document.getElementById('checkoutModal').classList.remove('open');
-        }
-
-        function submitOrder() {
-            const name = document.getElementById('customerName').value.trim();
-            const email = document.getElementById('customerEmail').value.trim();
-            if (!name || !email) {
-                showToast('⚠️ Заполните имя и email!');
-                return;
-            }
-            const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-            const method = document.getElementById('paymentMethod').value;
-            alert(
-                `✅ Заказ оформлен!\n\nПокупатель: ${name}\nEmail: ${email}\nОплата: ${method}\nСумма: ${total.toLocaleString()} ₽\n\nСпасибо за покупку! 🎉`);
-            cart = [];
-            updateCartUI();
-            closeCheckout();
-            document.getElementById('customerName').value = '';
-            document.getElementById('customerEmail').value = '';
-            showToast('🎉 Заказ успешно оформлен!');
-        }
-
-        // ===================== TOAST =====================
+        // ===================== ТОСТ =====================
         function showToast(msg) {
             const el = document.getElementById('toast');
             el.textContent = msg;
             el.classList.add('show');
             clearTimeout(el._timer);
-            el._timer = setTimeout(() => el.classList.remove('show'), 2600);
+            el._timer = setTimeout(() => el.classList.remove('show'), 3000);
         }
 
-        // ===================== THEME =====================
+        // ===================== СТРАНИЦЫ =====================
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + page).classList.add('active');
+            if (page === 'catalog') renderCatalog();
+            if (page === 'dashboard') renderDashboard();
+            if (page === 'myProducts') renderMyProducts();
+        }
+
+        // ===================== АВТОРИЗАЦИЯ =====================
+        function register() {
+            const username = document.getElementById('regUsername').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+            const role = document.getElementById('regRole').value;
+
+            if (!username || !email || !password) {
+                showToast('⚠️ Заполни все поля!');
+                return;
+            }
+            if (password.length < 6) {
+                showToast('⚠️ Пароль должен быть минимум 6 символов');
+                return;
+            }
+            if (users.find(u => u.email === email)) {
+                showToast('⚠️ Этот email уже зарегистрирован');
+                return;
+            }
+
+            users.push({
+                id: Date.now(),
+                username,
+                email,
+                password,
+                role,
+                rating: 0,
+                ratingCount: 0,
+                createdAt: new Date().toISOString(),
+                avatar: username[0].toUpperCase()
+            });
+            saveData();
+            showToast('✅ Регистрация успешна! Войди в аккаунт');
+            showPage('login');
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            const user = users.find(u => u.email === email && u.password === password);
+            if (!user) {
+                showToast('⚠️ Неверный email или пароль');
+                return;
+            }
+
+            currentUser = user;
+            saveData();
+            updateUI();
+            showToast('👋 Добро пожаловать, ' + user.username + '!');
+            showPage('catalog');
+        }
+
+        function logout() {
+            currentUser = null;
+            saveData();
+            updateUI();
+            showToast('👋 До свидания!');
+            showPage('catalog');
+        }
+
+        function updateUI() {
+            const authBtns = document.getElementById('authButtons');
+            const userMenu = document.getElementById('userMenu');
+
+            if (currentUser) {
+                authBtns.style.display = 'none';
+                userMenu.style.display = 'flex';
+            } else {
+                authBtns.style.display = 'flex';
+                userMenu.style.display = 'none';
+            }
+        }
+
+        // ===================== КАТАЛОГ =====================
+        function renderCatalog() {
+            const grid = document.getElementById('productGrid');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const min = parseFloat(document.getElementById('priceMin').value) || 0;
+            const max = parseFloat(document.getElementById('priceMax').value) || Infinity;
+
+            let filtered = products.filter(p => {
+                const matchSearch = p.title.toLowerCase().includes(search) || p.desc.toLowerCase().includes(search);
+                const matchCat = category === 'all' || p.category === category;
+                const matchPrice = p.price >= min && p.price <= max;
+                const matchStock = p.stock > 0;
+                return matchSearch && matchCat && matchPrice && matchStock;
+            });
+
+            // Сортируем по дате (новые сверху)
+            filtered.sort((a, b) => b.id - a.id);
+
+            if (!filtered.length) {
+                grid.innerHTML = `<div class="empty-state">😕 Товаров не найдено</div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(p => {
+                const seller = users.find(u => u.id === p.sellerId);
+                const inCart = cart.some(c => c.productId === p.id);
+                return `
+                        <div class="product-card">
+                            <div class="product-img">${p.emoji || '📦'}</div>
+                            <div class="product-title">${p.title}</div>
+                            <div class="product-desc">${p.desc}</div>
+                            <div class="product-price">${p.price.toLocaleString()} ₽</div>
+                            <div class="product-seller">👤 ${seller ? seller.username : 'Удалён'}</div>
+                            <div class="product-footer">
+                                <span style="font-size:13px;color:#94a3b8;">⭐ ${seller && seller.ratingCount > 0 ? (seller.rating / seller.ratingCount).toFixed(1) : '0.0'}</span>
+                                <button class="btn-buy ${inCart ? 'in-cart' : ''}" onclick="${currentUser ? `buyProduct(${p.id})` : `showToast('⚠️ Сначала войди в аккаунт!')`}">
+                                    ${inCart ? '✅ В корзине' : '🛒 Купить'}
+                                </button>
+                            </div>
+                        </div>
+                    `;
+            }).join('');
+        }
+
+        function applyFilters() {
+            renderCatalog();
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('categoryFilter').value = 'all';
+            document.getElementById('priceMin').value = '';
+            document.getElementById('priceMax').value = '';
+            renderCatalog();
+        }
+
+        // ===================== ПОКУПКА =====================
+        function buyProduct(productId) {
+            if (!currentUser) {
+                showToast('⚠️ Сначала войди в аккаунт!');
+                return;
+            }
+
+            const product = products.find(p => p.id === productId);
+            if (!product) {
+                showToast('⚠️ Товар не найден');
+                return;
+            }
+
+            if (product.sellerId === currentUser.id) {
+                showToast('⚠️ Нельзя купить свой товар');
+                return;
+            }
+
+            if (product.stock < 1) {
+                showToast('⚠️ Товара нет в наличии');
+                return;
+            }
+
+            selectedProductId = productId;
+
+            document.getElementById('payProductTitle').textContent = product.title;
+            const seller = users.find(u => u.id === product.sellerId);
+            document.getElementById('payProductSeller').textContent = seller ? seller.username : 'Удалён';
+            document.getElementById('payProductPrice').textContent = product.price.toLocaleString();
+
+            document.getElementById('paymentModal').classList.add('open');
+        }
+
+        function selectPayment(method) {
+            selectedPayment = method;
+            document.querySelectorAll('.payment-options .option').forEach(el => el.classList.remove('active'));
+            document.getElementById('opt-' + method).classList.add('active');
+        }
+
+        function closePayment() {
+            document.getElementById('paymentModal').classList.remove('open');
+            selectedProductId = null;
+        }
+
+        function payWithDonationAlerts() {
+            if (!selectedProductId) return;
+
+            const product = products.find(p => p.id === selectedProductId);
+            if (!product) return;
+
+            // Закрываем модалку оплаты
+            closePayment();
+
+            // Открываем модалку подтверждения
+            document.getElementById('confirmModal').classList.add('open');
+
+            // Формируем ссылку для DonationAlerts
+            const daLink =
+                `https://www.donationalerts.com/r/твой_ник?amount=${product.price}&message=Оплата%20товара%3A%20${encodeURIComponent(product.title)}`;
+
+            // Сохраняем заказ
+            orders.push({
+                id: Date.now(),
+                productId: product.id,
+                buyerId: currentUser.id,
+                sellerId: product.sellerId,
+                productTitle: product.title,
+                price: product.price,
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+                paymentMethod: selectedPayment === 'card' ? 'Банковская карта' : 'СБП',
+                daLink: daLink
+            });
+
+            // Уменьшаем количество товара
+            product.stock -= 1;
+
+            // Добавляем в корзину
+            const existing = cart.find(c => c.productId === product.id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ productId: product.id, qty: 1 });
+            }
+
+            saveData();
+
+            // Открываем ссылку DonationAlerts в новой вкладке
+            window.open(daLink, '_blank');
+
+            showToast('🔗 Открыта страница оплаты. После оплаты нажми "Я оплатил"');
+        }
+
+        function closeConfirm() {
+            document.getElementById('confirmModal').classList.remove('open');
+        }
+
+        function confirmPayment() {
+            // Находим последний заказ пользователя
+            const order = orders.filter(o => o.buyerId === currentUser.id).pop();
+            if (order) {
+                order.status = 'paid';
+                saveData();
+                showToast('✅ Оплата подтверждена! Продавец отправит товар');
+            } else {
+                showToast('⚠️ Заказ не найден');
+            }
+            closeConfirm();
+            renderCatalog();
+            renderDashboard();
+        }
+
+        // ===================== ДОБАВЛЕНИЕ ТОВАРА =====================
+        function addProduct() {
+            if (!currentUser) {
+                showToast('⚠️ Сначала войди в аккаунт!');
+                return;
+            }
+
+            if (currentUser.role === 'buyer') {
+                showToast('⚠️ Ты зарегистрирован как покупатель. Чтобы продавать, измени роль в профиле');
+                return;
+            }
+
+            const title = document.getElementById('prodTitle').value.trim();
+            const desc = document.getElementById('prodDesc').value.trim();
+            const price = parseFloat(document.getElementById('prodPrice').value);
+            const category = document.getElementById('prodCategory').value;
+            const emoji = document.getElementById('prodEmoji').value.trim() || '📦';
+            const stock = parseInt(document.getElementById('prodStock').value) || 1;
+
+            if (!title || !desc || !price || price < 1) {
+                showToast('⚠️ Заполни все поля корректно!');
+                return;
+            }
+
+            products.push({
+                id: Date.now(),
+                title,
+                desc,
+                price,
+                category,
+                emoji,
+                stock,
+                sellerId: currentUser.id,
+                createdAt: new Date().toISOString()
+            });
+
+            saveData();
+            showToast('✅ Товар добавлен!');
+            document.getElementById('prodTitle').value = '';
+            document.getElementById('prodDesc').value = '';
+            document.getElementById('prodPrice').value = '';
+            document.getElementById('prodEmoji').value = '';
+            document.getElementById('prodStock').value = '';
+            showPage('myProducts');
+        }
+
+        // ===================== ДАШБОРД =====================
+        function renderDashboard() {
+            if (!currentUser) {
+                document.getElementById('dashboardContent').innerHTML = '<p>Войди в аккаунт</p>';
+                return;
+            }
+
+            const myOrders = orders.filter(o => o.buyerId === currentUser.id || o.sellerId === currentUser.id);
+            const myProducts = products.filter(p => p.sellerId === currentUser.id);
+
+            const statusMap = {
+                'pending': '⏳ Ожидает оплаты',
+                'paid': '✅ Оплачен',
+                'done': '📦 Выполнен',
+                'canceled': '❌ Отменён'
+            };
+
+            let html = `
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <h3>👤 Профиль</h3>
+                            <p><strong>Имя:</strong> ${currentUser.username}</p>
+                            <p><strong>Email:</strong> ${currentUser.email}</p>
+                            <p><strong>Роль:</strong> ${currentUser.role === 'both' ? 'Продавец + Покупатель' : currentUser.role === 'seller' ? 'Продавец' : 'Покупатель'}</p>
+                            <p><strong>Рейтинг:</strong> ⭐ ${currentUser.ratingCount > 0 ? (currentUser.rating / currentUser.ratingCount).toFixed(1) : '0.0'}</p>
+                            <p><strong>Товаров:</strong> ${myProducts.length}</p>
+                            <p><strong>Заказов:</strong> ${myOrders.length}</p>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <h3>📦 Мои заказы</h3>
+                            ${myOrders.length ? myOrders.slice(-5).reverse().map(o => `
+                                <div class="item">
+                                    <span>${o.productTitle}</span>
+                                    <span>${o.price.toLocaleString()} ₽</span>
+                                    <span class="order-status status-${o.status}">${statusMap[o.status] || o.status}</span>
+                                </div>
+                            `).join('') : '<p style="color:#94a3b8;">Заказов пока нет</p>'}
+                            ${myOrders.length > 5 ? '<p style="color:#94a3b8;font-size:13px;">и ещё ' + (myOrders.length - 5) + ' заказов</p>' : ''}
+                        </div>
+
+                        <div class="dashboard-card">
+                            <h3>📊 Статистика</h3>
+                            <p><strong>💰 Продано на сумму:</strong> ${orders.filter(o => o.sellerId === currentUser.id && o.status === 'paid').reduce((sum, o) => sum + o.price, 0).toLocaleString()} ₽</p>
+                            <p><strong>📦 Продано товаров:</strong> ${orders.filter(o => o.sellerId === currentUser.id && o.status === 'paid').length}</p>
+                            <p><strong>🛒 Покупок:</strong> ${orders.filter(o => o.buyerId === currentUser.id && o.status === 'paid').length}</p>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <h3>🔗 Платёжная ссылка</h3>
+                            <p style="font-size:13px;color:#64748b;">Твоя ссылка для приёма платежей через DonationAlerts</p>
+                            <div style="background:#f0f2f8;border-radius:12px;padding:10px;margin:8px 0;word-break:break-all;font-size:13px;">
+                                https://www.donationalerts.com/r/твой_ник
+                            </div>
+                            <button class="btn-primary" onclick="navigator.clipboard.writeText('https://www.donationalerts.com/r/твой_ник')" style="padding:8px 18px;border-radius:30px;border:none;font-weight:600;cursor:pointer;">
+                                📋 Скопировать
+                            </button>
+                            <p style="font-size:12px;color:#94a3b8;margin-top:8px;">Замени "твой_ник" на свой ник в DonationAlerts</p>
+                        </div>
+                    </div>
+                `;
+
+            document.getElementById('dashboardContent').innerHTML = html;
+        }
+
+        // ===================== МОИ ТОВАРЫ =====================
+        function renderMyProducts() {
+            if (!currentUser) {
+                document.getElementById('myProductsContent').innerHTML = '<p>Войди в аккаунт</p>';
+                return;
+            }
+
+            const myProducts = products.filter(p => p.sellerId === currentUser.id);
+
+            if (!myProducts.length) {
+                document.getElementById('myProductsContent').innerHTML = `
+                        <div class="empty-state">
+                            📦 У вас пока нет товаров<br>
+                            <button class="btn-primary" onclick="showPage('addProduct')" style="margin-top:14px;padding:10px 24px;border-radius:30px;border:none;font-weight:600;cursor:pointer;">
+                                ➕ Добавить товар
+                            </button>
+                        </div>
+                    `;
+                return;
+            }
+
+            document.getElementById('myProductsContent').innerHTML = `
+                    <div style="display:grid;grid-template-columns:1fr;gap:12px;">
+                        ${myProducts.map(p => `
+                            <div style="background:#fff;border-radius:16px;padding:16px;border:1px solid #edf2f7;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+                                <div>
+                                    <span style="font-size:28px;">${p.emoji || '📦'}</span>
+                                    <strong>${p.title}</strong>
+                                    <span style="color:#64748b;font-size:13px;"> — ${p.price.toLocaleString()} ₽</span>
+                                    <span style="font-size:13px;color:#94a3b8;">📦 ${p.stock} шт.</span>
+                                </div>
+                                <div>
+                                    <button class="btn-danger" onclick="deleteProduct(${p.id})" style="padding:4px 14px;border-radius:20px;border:none;cursor:pointer;font-size:13px;">
+                                        🗑️ Удалить
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="btn-primary" onclick="showPage('addProduct')" style="margin-top:16px;padding:10px 24px;border-radius:30px;border:none;font-weight:600;cursor:pointer;">
+                        ➕ Добавить ещё товар
+                    </button>
+                `;
+        }
+
+        function deleteProduct(id) {
+            if (!confirm('Удалить товар?')) return;
+            products = products.filter(p => p.id !== id);
+            saveData();
+            showToast('🗑️ Товар удалён');
+            renderMyProducts();
+            renderCatalog();
+        }
+
+        // ===================== ТЕМА =====================
         function toggleTheme() {
             document.body.classList.toggle('dark');
             const btn = document.querySelector('.theme-toggle');
@@ -921,28 +1240,98 @@
             localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
         }
 
-        // ===================== CLOSE CART OUTSIDE =====================
-        document.addEventListener('click', (e) => {
-            const wrap = document.querySelector('.cart-wrapper');
-            if (wrap && !wrap.contains(e.target)) {
-                document.getElementById('cartPreview').classList.remove('show');
-            }
-        });
-
-        // ===================== CLOSE MODAL ON OVERLAY =====================
-        document.getElementById('checkoutModal').addEventListener('click', function(e) {
-            if (e.target === this) closeCheckout();
-        });
-
         // ===================== INIT =====================
-        // restore theme
+        // Восстановление темы
         if (localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark');
             document.querySelector('.theme-toggle').textContent = '☀️';
         }
 
-        renderProducts(products);
-        updateCartUI();
+        updateUI();
+        renderCatalog();
+
+        // Закрытие модалок по клику вне
+        document.querySelectorAll('.modal-overlay').forEach(el => {
+            el.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('open');
+                }
+            });
+        });
+
+        // ===================== ДОБАВЛЯЕМ ТЕСТОВЫЕ ТОВАРЫ (если пусто) =====================
+        if (products.length === 0) {
+            // Создаём тестового пользователя-продавца
+            let testSeller = users.find(u => u.username === 'TestSeller');
+            if (!testSeller) {
+                testSeller = {
+                    id: 1,
+                    username: 'TestSeller',
+                    email: 'test@mail.ru',
+                    password: '123456',
+                    role: 'seller',
+                    rating: 0,
+                    ratingCount: 0,
+                    createdAt: new Date().toISOString(),
+                    avatar: 'T'
+                };
+                users.push(testSeller);
+            }
+
+            products = [{
+                id: 101,
+                title: 'Steam аккаунт CS2',
+                desc: 'Ранг LE, 5 скинов, 200+ часов',
+                price: 1290,
+                category: 'accounts',
+                emoji: '🎯',
+                stock: 3,
+                sellerId: testSeller.id,
+                createdAt: new Date().toISOString()
+            }, {
+                id: 102,
+                title: 'Cyberpunk 2077 ключ',
+                desc: 'PC / GOG, регион RU',
+                price: 1999,
+                category: 'keys',
+                emoji: '🔑',
+                stock: 5,
+                sellerId: testSeller.id,
+                createdAt: new Date().toISOString()
+            }, {
+                id: 103,
+                title: 'PlayStation Plus 12 мес',
+                desc: 'Подписка EU, активация на консоли',
+                price: 3490,
+                category: 'keys',
+                emoji: '🎮',
+                stock: 2,
+                sellerId: testSeller.id,
+                createdAt: new Date().toISOString()
+            }, {
+                id: 104,
+                title: 'World of Warcraft акк',
+                desc: '60 уровень, 300+ достижений',
+                price: 2500,
+                category: 'accounts',
+                emoji: '⚔️',
+                stock: 1,
+                sellerId: testSeller.id,
+                createdAt: new Date().toISOString()
+            }, {
+                id: 105,
+                title: 'Xbox Game Pass Ultimate',
+                desc: '3 месяца, глобальный ключ',
+                price: 1299,
+                category: 'keys',
+                emoji: '🎮',
+                stock: 4,
+                sellerId: testSeller.id,
+                createdAt: new Date().toISOString()
+            }, ];
+
+            saveData();
+        }
     </script>
 
 </body>
